@@ -2,6 +2,11 @@ version: '3'
 services:
     php-news:
         container_name: php-news
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.20'
+                    memory: 100M
         build:
             context: .
             dockerfile: Dockerfile
@@ -13,6 +18,11 @@ services:
             - backend-network-news
     webserver-news:
         image: nginx:stable-alpine
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.20'
+                    memory: 100M
         ports:
             - "8089:80"
             - "443:443"
@@ -28,6 +38,11 @@ services:
         image: mysql:latest
         platform: linux/x86_64
         restart: always
+        deploy:
+            resources:
+                limits:
+                    cpus: '0.20'
+                    memory: 100M
         ports:
             - "3306:3306"
         volumes:
