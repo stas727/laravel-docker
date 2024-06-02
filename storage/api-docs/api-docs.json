@@ -1,0 +1,211 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Laravel API",
+        "version": "v1"
+    },
+    "paths": {
+        "/v1": {},
+        "/v1/news": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Get news",
+                "description": "Display a listing of the news",
+                "operationId": "NewsController.index()",
+                "parameters": [
+                    {
+                        "name": "title",
+                        "in": "query",
+                        "description": "Filtering by title",
+                        "required": false,
+                        "example": "Some news title"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/News"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Update data",
+                "description": "Update news data",
+                "operationId": "NewsController.update()",
+                "requestBody": {
+                    "description": "Set news status",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "status": {
+                                        "description": "News status",
+                                        "type": "integer",
+                                        "format": "int",
+                                        "example": "1"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "boolean",
+                                            "example": "true"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "News not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "News not found"
+                                        },
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/v1/news/{url}": {
+            "get": {
+                "tags": [
+                    "News"
+                ],
+                "summary": "Find news",
+                "operationId": "48629a8a954a75eb8c662d6c9f6e9b20",
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "path",
+                        "description": "Find a concrete news",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "examples": {
+                            "string": {
+                                "summary": "A string value",
+                                "value": "some-url-example"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/News"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "News not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "News not found"
+                                        },
+                                        "status": {
+                                            "type": "boolean",
+                                            "example": "false"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "News": {
+                "properties": {
+                    "title": {
+                        "description": "News title",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "url": {
+                        "description": "News url",
+                        "type": "string",
+                        "readOnly": "true"
+                    },
+                    "short_description": {
+                        "description": "Short text",
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Some short text"
+                    },
+                    "full_description": {
+                        "description": "Full text",
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "Some full text"
+                    },
+                    "created_at": {
+                        "type": "string",
+                        "readOnly": "true",
+                        "example": "021-06-22T23:22:26.000000Z"
+                    },
+                    "status": {
+                        "type": "integer",
+                        "maxLength": 1,
+                        "example": "1"
+                    }
+                },
+                "type": "object",
+                "xml": {
+                    "name": "News"
+                }
+            }
+        }
+    }
+}

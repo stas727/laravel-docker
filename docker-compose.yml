@@ -1,0 +1,49 @@
+version: '3'
+services:
+    php-news:
+        container_name: php-news
+        build:
+            context: .
+            dockerfile: Dockerfile
+        ports:
+            - "9000:9000"
+        volumes:
+            - ./:/var/www
+        networks:
+            - backend-network-news
+    webserver-news:
+        image: nginx:stable-alpine
+        ports:
+            - "8089:80"
+            - "443:443"
+        volumes:
+            - ./:/var/www
+            - ./.docker/nginx/conf.d/default.conf:/etc/nginx/conf.d/default.conf
+        depends_on:
+            - php-news
+            - db-news
+        networks:
+            - backend-network-news
+    db-news:
+        image: mysql:latest
+        platform: linux/x86_64
+        restart: always
+        ports:
+            - "3306:3306"
+        volumes:
+            - ./.docker/db/data/mysql:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: main
+            MYSQL_USER: main_user
+            MYSQL_PASSWORD: main_password
+            MYSQL_ROOT_PASSWORD: main_password
+        networks:
+            - backend-network-news
+#Docker Networks
+networks:
+    backend-network-news:
+        driver: bridge
+#Volumes
+volumes:
+    dbdata:
+        driver: local
