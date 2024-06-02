@@ -23,6 +23,13 @@ class DBNewsRepository implements NewsRepository
 
         $news = $query
             ->active()
+            ->select(
+                'title',
+                'url',
+                'short_description',
+                'created_at',
+                'status'
+            )
             ->when(
                 $newsRequestGetDto->getTitle(),
                 function (Builder $builder) use ($newsRequestGetDto) {

@@ -13,7 +13,7 @@ class NewsDTO
         private readonly string     $title,
         private readonly string     $url,
         private readonly string     $shortDescription,
-        private readonly string     $fullDescription,
+        private readonly ?string     $fullDescription,
         private readonly Carbon     $createdAt,
         private readonly NewsStatus $status,
     )
