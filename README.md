@@ -2,7 +2,7 @@
 
 ## Demo
 
-[Demo](http://18.184.119.201:8089/api/documentation) - demo api documentation
+[Demo](https://stdeveloper.com/api/documentation) - demo api documentation
 
 
 ## Local usage
@@ -30,7 +30,7 @@ php artisan migrate
 
 Seed:
 ```console
-php artisan migrate
+php artisan db:seed
 ```
 
 Test check:
